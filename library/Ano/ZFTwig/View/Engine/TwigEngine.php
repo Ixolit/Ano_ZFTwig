@@ -43,10 +43,6 @@ class Ano_ZFTwig_View_Engine_TwigEngine extends Ano_View_Engine_Abstract
         $loader = $this->_getFileLoader();
         $twigEnvironment = new Ano_ZFTwig_Environment($this->getView(), $loader, $options);
 
-        if (array_key_exists('auto_escape', $options)) {
-            $twigEnvironment->addExtension(new Twig_Extension_Escaper((bool)$options['auto_escape']));
-        }
-
         if (array_key_exists('extensions', $config) && is_array($config['extensions'])) {
             foreach($config['extensions'] as $extension) {
                 $extensionClass = $extension['class'];
