@@ -1,4 +1,8 @@
 <?php
+use Twig\Compiler;
+use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Node;
+
 /**
  * This file is part of the Ano_ZFTwig package
  *
@@ -19,11 +23,11 @@
  * @subpackage  Node
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_Node_JavascriptNode extends Twig_Node
+class Ano_ZFTwig_Node_JavascriptNode extends Node
 {
     protected $contentKey;
 
-    public function __construct(Twig_Node_Expression $expr, Twig_Node_Expression $options, $lineno, $tag = null)
+    public function __construct(AbstractExpression $expr, AbstractExpression $options, $lineno, $tag = null)
     {
         parent::__construct(array('expr' => $expr, 'options' => $options), array(), $lineno, $tag);
     }
@@ -31,9 +35,9 @@ class Ano_ZFTwig_Node_JavascriptNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler A Twig_Compiler instance
+     * @param Compiler A Twig_Compiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $options = $this->getNode('options');
         $mode = $options->hasNode('mode') ? $options->getNode('mode')->getAttribute('value') : 'append';

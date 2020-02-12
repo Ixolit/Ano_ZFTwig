@@ -1,7 +1,11 @@
 <?php
+use Twig\Compiler;
+use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Node;
+
 /**
  * This file is part of the Ano_ZFTwig package
- * 
+ *
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
@@ -19,11 +23,11 @@
  * @subpackage  Node
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_Node_HelperNode extends Twig_Node
+class Ano_ZFTwig_Node_HelperNode extends Node
 {
     protected $helper;
 
-    public function __construct($helper, Twig_Node_Expression $attributes = null, $lineno, $tag = null)
+    public function __construct($helper, AbstractExpression $attributes = null, $lineno, $tag = null)
     {
         $this->helper = $helper;
         parent::__construct(array(), array('helper_attributes' => $attributes), array(), $lineno, $tag);
@@ -32,9 +36,9 @@ class Ano_ZFTwig_Node_HelperNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler A Twig_Compiler instance
+     * @param Compiler A Twig_Compiler instance
      */
-    public function compile(Twig_Compiler $compiler)
+    public function compile(Compiler $compiler)
     {
         $args = $this->getAttribute('helper_attributes');
         $compiler

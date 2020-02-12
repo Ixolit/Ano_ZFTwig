@@ -1,7 +1,10 @@
 <?php
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
+
 /**
  * This file is part of the Ano_ZFTwig package
- * 
+ *
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
@@ -19,15 +22,15 @@
  * @subpackage  TokenParser
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_TokenParser_RouteTokenParser extends Twig_TokenParser
+class Ano_ZFTwig_TokenParser_RouteTokenParser extends AbstractTokenParser
 {
     /**s
      * Parses a token and returns a node.
      *
-     * @param  Twig_Token $token A Twig_Token instance
+     * @param  Token $token A Twig_Token instance
      * @return Twig_NodeInterface A Twig_NodeInterface instance
      */
-    public function parse(Twig_Token $token)
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
@@ -40,7 +43,7 @@ class Ano_ZFTwig_TokenParser_RouteTokenParser extends Twig_TokenParser
             $attributes = $this->parser->getExpressionParser()->parseExpression();
         }
 
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
         return new Ano_ZFTwig_Node_RouteNode($route, $attributes, $lineno, $this->getTag());
     }

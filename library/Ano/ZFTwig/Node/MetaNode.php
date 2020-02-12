@@ -1,7 +1,11 @@
 <?php
+use Twig\Node\Expression\AbstractExpression;
+use Twig\Node\Node;
+use Twig\Compiler;
+
 /**
  * This file is part of the Ano_ZFTwig package
- * 
+ *
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
@@ -19,7 +23,7 @@
  * @subpackage  Node
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_Node_MetaNode extends Twig_Node
+class Ano_ZFTwig_Node_MetaNode extends Node
 {
     protected $contentKey;
 
@@ -31,10 +35,10 @@ class Ano_ZFTwig_Node_MetaNode extends Twig_Node
     /**
      * Compiles the node to PHP.
      *
-     * @param Twig_Compiler A Twig_Compiler instance
+     * @param Compiler A Twig_Compiler instance
      */
-    public function compile(Twig_Compiler $compiler)
-    {                
+    public function compile(Compiler $compiler)
+    {
         $options = $this->getNode('options');
         $mode = $options->hasNode('mode') ? $options->getNode('mode')->getAttribute('value') : 'append';
         $name = $options->hasNode('name') ? $options->getNode('name') : false;
@@ -70,7 +74,7 @@ class Ano_ZFTwig_Node_MetaNode extends Twig_Node
                 $method = 'offsetSetHttpEquiv';
                 $key = $httpEquiv;
             }
-            
+
             $compiler
                 ->write("$method(")
                 ->subcompile($offset)

@@ -1,4 +1,6 @@
 <?php
+use Twig\Environment;
+
 /**
  * This file is part of the Ano_ZFTwig package
  *
@@ -21,7 +23,7 @@
 class Ano_ZFTwig_View_Engine_TwigEngine extends Ano_View_Engine_Abstract
 {
     /**
-     * @var Twig_Environment
+     * @var Environment
      */
     protected $environment = null;
 
@@ -90,17 +92,17 @@ class Ano_ZFTwig_View_Engine_TwigEngine extends Ano_View_Engine_Abstract
     /**
      * Sets the twig environment
      *
-     * @param  Twig_Environment $environment
+     * @param  Environment $environment
      * @return Ano_ZFTwig_View_Engine_TwigEngine
      */
-    public function setEnvironment(Twig_Environment $environment)
+    public function setEnvironment(Environment $environment)
     {
         $this->environment = $environment;
         return $this;
     }
 
     /**
-     * @return Twig_Environment
+     * @return Environment
      */
     public function getEnvironment()
     {
