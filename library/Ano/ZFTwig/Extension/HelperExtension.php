@@ -1,7 +1,11 @@
 <?php
+use Twig\Extension\AbstractExtension;
+use Twig\TokenParser\AbstractTokenParser;
+use Twig\Environment;
+
 /**
  * This file is part of the Ano_ZFTwig package
- * 
+ *
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
@@ -21,12 +25,12 @@
  * @subpackage  Extension
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_Extension_HelperExtension extends Twig_Extension
+class Ano_ZFTwig_Extension_HelperExtension extends AbstractExtension
 {
     /**
      * Returns the token parser instance to add to the existing list.
      *
-     * @return array An array of Twig_TokenParser instances
+     * @return array An array of AbstractTokenParser instances
      */
     public function getTokenParsers()
     {
@@ -60,59 +64,59 @@ class Ano_ZFTwig_Extension_HelperExtension extends Twig_Extension
     public function getFunctions()
     {
         return array(
-            'headTitle'    => new \Twig_SimpleFunction('headTitle', array($this, 'getHeadTitle'), array(
+            'headTitle'    => new \Twig\TwigFunction('headTitle', array($this, 'getHeadTitle'), array(
                 'needs_environment' => true,
                 'is_safe' => array('html')
             )),
-            'javascripts'  => new \Twig_SimpleFunction('javascripts', array($this, 'getJavascripts'), array(
+            'javascripts'  => new \Twig\TwigFunction('javascripts', array($this, 'getJavascripts'), array(
                 'needs_environment' => true,
                 'is_safe' => array('html')
             )),
-            'stylesheets'  => new \Twig_SimpleFunction('stylesheets', array($this, 'getStylesheets'), array(
+            'stylesheets'  => new \Twig\TwigFunction('stylesheets', array($this, 'getStylesheets'), array(
                 'needs_environment' => true,
                 'is_safe' => array('html')
             )),
-            'metas'  => new \Twig_SimpleFunction('metas', array($this, 'getMetas'), array(
+            'metas'  => new \Twig\TwigFunction('metas', array($this, 'getMetas'), array(
                 'needs_environment' => true,
                 'is_safe' => array('html')
             )),
-            'url'  => new \Twig_SimpleFunction('url', array($this, 'getUrl'), array(
+            'url'  => new \Twig\TwigFunction('url', array($this, 'getUrl'), array(
                 'needs_environment' => true,
                 'is_safe' => array('html')
             )),
-            'layoutBlock'  => new \Twig_SimpleFunction('layoutBlock', array($this, 'getLayoutBlock'), array(
+            'layoutBlock'  => new \Twig\TwigFunction('layoutBlock', array($this, 'getLayoutBlock'), array(
                 'needs_environment' => true,
                 'is_safe' => array('html')
             )),
         );
     }
 
-    public function getHeadTitle(Twig_Environment $env)
+    public function getHeadTitle(Environment $env)
     {
         return $env->getView()->headTitle();
     }
 
-    public function getJavascripts(Twig_Environment $env)
+    public function getJavascripts(Environment $env)
     {
         return $env->getView()->headScript();
     }
 
-    public function getStylesheets(Twig_Environment $env)
+    public function getStylesheets(Environment $env)
     {
         return $env->getView()->headLink();
     }
 
-    public function getMetas(Twig_Environment $env)
+    public function getMetas(Environment $env)
     {
         return $env->getView()->headMeta();
     }
 
-    public function getUrl(Twig_Environment $env, $name, array $parameters = array(), $reset = false, $encode = true)
+    public function getUrl(Environment $env, $name, array $parameters = array(), $reset = false, $encode = true)
     {
         return $env->getView()->url($parameters, $name, $reset, $encode);
     }
 
-    public function getLayoutBlock(Twig_Environment $env, $name)
+    public function getLayoutBlock(Environment $env, $name)
     {
         return $env->getView()->layout()->__get($name);
     }

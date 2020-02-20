@@ -1,7 +1,13 @@
 <?php
+use Twig\Parser;
+use Twig\Compiler;
+use Twig\Lexer;
+use Twig\Loader\LoaderInterface;
+use Twig\Environment;
+
 /**
  * This file is part of the Ano_ZFTwig package
- * 
+ *
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
@@ -17,7 +23,7 @@
  * @package     Ano_ZFTwig
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_Environment extends Twig_Environment
+class Ano_ZFTwig_Environment extends Environment
 {
     /**
      * @var Zend_View_Interface
@@ -26,16 +32,16 @@ class Ano_ZFTwig_Environment extends Twig_Environment
 
     /**
      * @param Zend_View_Interface    $viw     A Zend Framework view object
-     * @param Twig_LoaderInterface   $loader  A Twig_LoaderInterface instance
+     * @param LoaderInterface   $loader  A LoaderInterface instance
      * @param array                  $options An array of options
-     * @param Twig_LexerInterface    $lexer   A Twig_LexerInterface instance
-     * @param Twig_ParserInterface   $parser  A Twig_ParserInterface instance
-     * @param Twig_CompilerInterface $compiler A Twig_CompilerInterface instance
+     * @param Lexer    $lexer   A Lexer instance
+     * @param Parser   $parser  A Parser instance
+     * @param Compiler $compiler A Compiler instance
      *
-     * @see Twig_Environment::__construct()
+     * @see Twig\Environment::__construct()
      */
-    public function __construct(Zend_View_Interface $view, Twig_LoaderInterface $loader = null, $options = array(), Twig_LexerInterface $lexer = null, Twig_ParserInterface $parser = null, Twig_CompilerInterface $compiler = null)
-    {        
+    public function __construct(Zend_View_Interface $view, LoaderInterface $loader = null, $options = array(), Lexer $lexer = null, Parser $parser = null, Compiler $compiler = null)
+    {
         $this->setView($view);
         parent::__construct($loader, $options, $lexer, $parser, $compiler);
     }

@@ -1,7 +1,10 @@
 <?php
+use Twig\TokenParser\AbstractTokenParser;
+use Twig\Token;
+
 /**
  * This file is part of the Ano_ZFTwig package
- * 
+ *
  * LICENSE
  *
  * This source file is subject to the new BSD license that is bundled
@@ -19,29 +22,29 @@
  * @subpackage  TokenParser
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_TokenParser_HelperTokenParser extends Twig_TokenParser
+class Ano_ZFTwig_TokenParser_HelperTokenParser extends AbstractTokenParser
 {
     /**
      * Parses a token and returns a node.
      *
-     * @param  Twig_Token $token A Twig_Token instance
+     * @param  Token $token A Token instance
      * @return Twig_NodeInterface A Twig_NodeInterface instance
      */
-    public function parse(Twig_Token $token)
+    public function parse(Token $token)
     {
         $lineno = $token->getLine();
-        $stream = $this->parser->getStream();        
+        $stream = $this->parser->getStream();
 
-        $helper = $this->parser->getStream()->expect(Twig_Token::STRING_TYPE)->getValue();
+        $helper = $this->parser->getStream()->expect(Token::STRING_TYPE)->getValue();
 
         $attributes = null;
-        if ($stream->test(Twig_Token::NAME_TYPE, 'with')) {
+        if ($stream->test(Token::NAME_TYPE, 'with')) {
             $stream->next();
-            
+
             $attributes = $this->parser->getExpressionParser()->parseExpression();
         }
 
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+        $stream->expect(Token::BLOCK_END_TYPE);
 
         return new Ano_ZFTwig_Node_HelperNode($helper, $attributes, $lineno, $this->getTag());
     }

@@ -1,4 +1,8 @@
 <?php
+use Twig\Loader\LoaderInterface;
+use Twig\Loader\FilesystemLoader;
+use Twig\Error\LoaderError;
+
 /**
  * This file is part of the Ano_ZFTwig package
  *
@@ -19,8 +23,8 @@
  * @subpackage  Loader
  * @author      Benjamin Dulau <benjamin.dulau@gmail.com>
  */
-class Ano_ZFTwig_Loader_FileLoader extends Twig_Loader_Filesystem
-                                   implements Twig_LoaderInterface
+class Ano_ZFTwig_Loader_FileLoader extends FilesystemLoader
+                                   implements LoaderInterface
 {
     /**
      * Add to the stack of view paths.
@@ -30,7 +34,7 @@ class Ano_ZFTwig_Loader_FileLoader extends Twig_Loader_Filesystem
     public function addPath($path, $namespace = '__main__')
     {
         if (!is_dir($path)) {
-            throw new Twig_Error_Loader(sprintf('The "%s" directory does not exist.', $path));
+            throw new LoaderError(sprintf('The "%s" directory does not exist.', $path));
         }
 
         $this->paths[$namespace][] = rtrim($path, '/\\');
